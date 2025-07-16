@@ -1,7 +1,14 @@
+
+import Models.Maze;
+import java.util.Arrays;
+import java.util.List;
+
 public class App {
     public static void main(String[] args) throws Exception {
-        runEjerciciosPD();
+        //runEjerciciosPD();
+        runMaze();
     }
+    /* 
     public static void runEjerciciosPD() {
         EjerciciosPD ejercicios = new EjerciciosPD();
         int n = 100; 
@@ -35,10 +42,35 @@ public class App {
         long duracionPD = endPD - startPD;
         System.out.println("Resultado: " + resultadoPD + " Duración: " + duracionPD + "ns");
         */
+    public static void runMaze() {
+       
+        boolean[][] predefinedmaze = {
+            {true, true, true, true},
+            {false, true, true, true},
+            {true, true, false, false},
+            {true, true, true, true},
+            
+        };
+        Maze maze = new Maze();
+        System.out.println("Laberinto cargado");
+        maze.printMaze();
+        Celda start = new Celda(0, 0);
+        Celda end = new Celda(3, 3);
+        List<MazeSolver> solvers = Arrays.asList(
+            new MazeSolverRecursivo()
+            //new MazeSolverRecursivoCompleto(),
+            //new MazeSolverBFS(),
+            //new MazeSolverDFS(), // Assuming you have an iterative solver
+        );
+        MazeSolver solver = solvers.get(0);
+        List<Celda> path ;
+        path = solver.getPath(maze.getGrid(), start, end);
+        System.out.println(path);
+    }       
             
             
-            
-    }
+
+    
     
 }
            
