@@ -42,36 +42,56 @@ public class App {
         long duracionPD = endPD - startPD;
         System.out.println("Resultado: " + resultadoPD + " Duración: " + duracionPD + "ns");
         */
-    public static void runMaze() {
-       
+        public static void runMaze() {
         boolean[][] predefinedmaze = {
             {true, true, true, true},
             {false, true, true, true},
             {true, true, false, false},
             {true, true, true, true},
-            
         };
         Maze maze = new Maze();
-        System.out.println("Laberinto cargado");
-        maze.printMaze();
+        maze.setGrid(predefinedmaze);
+
+        System.out.println("Laberinto cargado:");
+        printMazeCustom(maze.getGrid());
+
         Celda start = new Celda(0, 0);
         Celda end = new Celda(3, 3);
-        List<MazeSolver> solvers = Arrays.asList(
-            new MazeSolverRecursivo()
-            //new MazeSolverRecursivoCompleto(),
-            //new MazeSolverBFS(),
-            //new MazeSolverDFS(), // Assuming you have an iterative solver
-        );
-        MazeSolver solver = solvers.get(0);
-        List<Celda> path ;
-        path = solver.getPath(maze.getGrid(), start, end);
-        System.out.println(path);
-    }       
-            
-            
 
-    
-    
+        List<MazeSolver> solvers = Arrays.asList(
+            new MazeSolverRecursivo(),
+            new MazeSolverRecursivoCompleto(),
+            new MazeSolverBFS(),
+            new MazeSolverDFS()
+        );
+
+        for (MazeSolver solver : solvers) {
+            System.out.println("Ejecutando: " + solver.getClass().getSimpleName());
+            List<Celda> path = solver.getPath(maze.getGrid(), start, end);
+            System.out.print("Camino encontrado:");
+            printPath(path);
+        }
+    }
+
+    public static void printMazeCustom(boolean[][] grid) {
+        for (boolean[] row : grid) {
+            for (boolean cell : row) {
+                System.out.print(cell ? "- " : "* ");
+            }
+            System.out.println();
+        }
+    }
+
+    public static void printPath(List<Celda> path) {
+        for (int i = 0; i < path.size(); i++) {
+        Celda c = path.get(i);
+        System.out.print("Cell [" + c.getRow() + "," + c.getCol() + "]");
+        if (i != path.size() - 1) System.out.print(", ");
+    }
+    System.out.println();
+      
+       
+    }  
 }
            
     
