@@ -1,3 +1,5 @@
+package Models;
+
 public class Celda {
     public int row;
     public int col;
@@ -7,21 +9,8 @@ public class Celda {
         this.col = col;
     }
 
-    public int getRow() {
-        return row;
-    }
-
-    public int getCol() {
-        return col;
-    }
-
-    @Override
-    public String toString() {
-        return "Celda{" +
-                "row=" + row +
-                ", col=" + col +
-                '}';
-    }
+    public int getRow() { return row; }
+    public int getCol() { return col; }
 
     @Override
     public boolean equals(Object o) {
@@ -36,8 +25,7 @@ public class Celda {
         return 31 * row + col;
     }
     
-
-
+   
     
 
 }

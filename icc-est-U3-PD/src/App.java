@@ -1,13 +1,49 @@
 
+import Models.Celda;
 import Models.Maze;
 import java.util.Arrays;
 import java.util.List;
 
 public class App {
     public static void main(String[] args) throws Exception {
-        //runEjerciciosPD();
-        runMaze();
+        boolean[][] predefinedMaze = {
+            {true, true, true, true},
+            {false, true, true, true},
+            {true, true, false, false},
+            {true, true, true, true}
+        };
+
+        Maze maze = new Maze();
+        maze.setGrid(predefinedMaze);
+
+        System.out.println("Laberinto cargado:");
+        maze.printMaze();
+
+        Celda start = new Celda(0, 0);
+        Celda end = new Celda(3, 3);
+
+        MazeSolverRecursivoCompletoBT solver = new MazeSolverRecursivoCompletoBT();
+
+        System.out.println("\nEjecutando: MazeSolverRecursivoCompletoBT");
+        List<Celda> path = solver.getPath(maze.getGrid(), start, end);
+
+        System.out.println("\nLaberinto con las celdas visitadas:");
+        maze.printMaze(solver.getVisited());
+
+        System.out.println("\nLaberinto con el camino recorrido:");
+        maze.printMaze(path);
+
+        System.out.print("\nCamino encontrado: ");
+        for (int i = 0; i < path.size(); i++) {
+            Celda c = path.get(i);
+            System.out.print("[" + c.getRow() + "," + c.getCol() + "]");
+            if (i != path.size() - 1) System.out.print(", ");
+        }
+        System.out.println();
     }
+        //runEjerciciosPD();
+        //runMaze();
+}
     /* 
     public static void runEjerciciosPD() {
         EjerciciosPD ejercicios = new EjerciciosPD();
@@ -41,7 +77,7 @@ public class App {
         long endPD = System.nanoTime();
         long duracionPD = endPD - startPD;
         System.out.println("Resultado: " + resultadoPD + " Duración: " + duracionPD + "ns");
-        */
+        
         public static void runMaze() {
         boolean[][] predefinedmaze = {
             {true, true, true, true},
@@ -91,7 +127,8 @@ public class App {
     System.out.println();
       
        
-    }  
-}
+    } 
+    */ 
+
            
     
